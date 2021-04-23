@@ -209,6 +209,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				88BDCBEC46786C9908996915 /* [CP] Copy Pods Resources */,
+				86CC67204F6EB54A87595921 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -231,6 +232,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				6FD9D916622E48E39949C817 /* [CP] Copy Pods Resources */,
+				02B3A97117EFE7251F1BE7A3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -376,6 +378,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
+		02B3A97117EFE7251F1BE7A3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myprojectname/Pods-myprojectname-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myprojectname/Pods-myprojectname-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1B53E78F0EB7076726CAE35D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -494,6 +514,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myprojectname/Pods-myprojectname-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86CC67204F6EB54A87595921 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myprojectname-myprojectnameTests/Pods-myprojectname-myprojectnameTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myprojectname-myprojectnameTests/Pods-myprojectname-myprojectnameTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		88BDCBEC46786C9908996915 /* [CP] Copy Pods Resources */ = {
