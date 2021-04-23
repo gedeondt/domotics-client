@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, Button, TextInput, View, StyleSheet } from 'react-native'
+import * as Config from '../../../config.json'
 
 export default class LoginForm extends Component<any, any> {
   constructor(props: any) {
@@ -16,7 +17,7 @@ export default class LoginForm extends Component<any, any> {
     const { username, password } = this.state
     const { onLogin } = this.props
 
-    fetch('https://lpvy55ly9i.execute-api.eu-west-1.amazonaws.com/default/', {
+    fetch(Config.loginURL, {
       method: 'POST',
       body: JSON.stringify({
         user: username,

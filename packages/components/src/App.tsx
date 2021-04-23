@@ -8,13 +8,45 @@ import {
   View,
   Button,
 } from 'react-native'
+import * as Config from '../../../config.json'
 
 import LoginForm from './LoginForm'
 
-export function App() {
-  const [token, setToken] = useState({ AccessKeyId: false })
+var AWS = require('aws-sdk') // eslint-disable-line
+AWS.config.update({ region: 'eu-west-1' })
 
-  function emptyFunction() {}
+export function App() {
+  const [token, setToken] = useState({
+    AccessKeyId: '',
+    SecretAccessKey: '',
+    SessionToken: '',
+  })
+  const sqs = new AWS.SQS({ apiVersion: '2012-11-05' })
+
+  function onLogin(newToken: any) {
+    setToken(newToken)
+  }
+
+  function sendMessage() {
+    sqs.config.update({
+      accessKeyId: token.AccessKeyId,
+      secretAccessKey: token.SecretAccessKey,
+      sessionToken: token.SessionToken,
+    })
+
+    const params = {
+      MessageBody: 'TEST',
+      QueueUrl: Config.queue,
+    }
+
+    sqs.sendMessage(params, (err: any, data: any) => {
+      if (err) {
+        console.log('Error', err)
+      } else {
+        console.log('Success', data.MessageId)
+      }
+    })
+  }
 
   return (
     <>
@@ -33,10 +65,10 @@ export function App() {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              {token.AccessKeyId ? (
-                <Button onPress={emptyFunction} title="ON!" />
+              {token.AccessKeyId !== '' ? (
+                <Button onPress={() => sendMessage()} title="ON!" />
               ) : (
-                <LoginForm onLogin={setToken} />
+                <LoginForm onLogin={(newToken: any) => onLogin(newToken)} />
               )}
             </View>
           </View>
