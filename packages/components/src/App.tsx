@@ -4,10 +4,11 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
-  Button,
+  Image,
 } from 'react-native'
+import { Device } from './Interfaces'
+import { Devices } from './Elements/Devices'
 import * as Config from '../../../config.json'
 
 import LoginForm from './LoginForm'
@@ -15,19 +16,25 @@ import LoginForm from './LoginForm'
 var AWS = require('aws-sdk') // eslint-disable-line
 AWS.config.update({ region: 'eu-west-1' })
 
+const placeholder = '/image/placeholder.svg'
+
 export function App() {
   const [token, setToken] = useState({
     AccessKeyId: '',
     SecretAccessKey: '',
     SessionToken: '',
   })
+
+  const [devices, setDevices] = useState([] as Device[])
+
   const sqs = new AWS.SQS({ apiVersion: '2012-11-05' })
 
-  function onLogin(newToken: any) {
-    setToken(newToken)
+  function onLogin(data: any) {
+    setToken(data.token)
+    setDevices(data.devices)
   }
 
-  function sendMessage() {
+  function sendMessage(message: string) {
     sqs.config.update({
       accessKeyId: token.AccessKeyId,
       secretAccessKey: token.SecretAccessKey,
@@ -35,7 +42,7 @@ export function App() {
     })
 
     const params = {
-      MessageBody: 'TEST',
+      MessageBody: message,
       QueueUrl: Config.queue,
     }
 
@@ -56,19 +63,12 @@ export function App() {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
-          {global.HermesInternal == null ? (
-            ''
-          ) : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               {token.AccessKeyId !== '' ? (
-                <Button onPress={() => sendMessage()} title="ON!" />
+                <Devices devices={devices} sendMessage={sendMessage} />
               ) : (
-                <LoginForm onLogin={(newToken: any) => onLogin(newToken)} />
+                <LoginForm onLogin={(data: any) => onLogin(data)} />
               )}
             </View>
           </View>
@@ -82,41 +82,14 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: 'white',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
   body: {
     backgroundColor: 'white',
   },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: 'black',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: 'gray',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: 'gray',
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 })
-
-declare let global: {
-  HermesInternal?: boolean
-}

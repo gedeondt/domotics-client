@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "concurrently \"yarn start\" \"react-native run-android --no-packager\"",
-    "ios": "concurrently \"yarn start\" \"react-native run-ios --no-packager\"",
+    "ios": "concurrently \"yarn start\" \"react-native run-ios --device \"Gedephone\" --no-packager\"",
     "lint": "eslint .",
     "start": "react-native start",
     "studio": "studio android",

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, Button, TextInput, View, StyleSheet } from 'react-native'
+import { Text, TextInput, View, StyleSheet, Image } from 'react-native'
+import { AppButton } from './Elements/AppButton'
 import * as Config from '../../../config.json'
 
 export default class LoginForm extends Component<any, any> {
@@ -36,8 +37,10 @@ export default class LoginForm extends Component<any, any> {
 
   render() {
     const { error, username, password } = this.state
+
     return (
       <View style={styles.container}>
+        <Image style={styles.image} source={{ uri: '/icons/login.svg' }} />
         {!error ? null : (
           <Text style={styles.error}>Check your credentials</Text>
         )}
@@ -55,7 +58,7 @@ export default class LoginForm extends Component<any, any> {
           style={styles.input}
         />
 
-        <Button title="Login" onPress={() => this.onLogin()} />
+        <AppButton title="Login" onPress={() => this.onLogin()} />
       </View>
     )
   }
@@ -64,6 +67,7 @@ export default class LoginForm extends Component<any, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
@@ -72,9 +76,15 @@ const styles = StyleSheet.create({
     width: 200,
     height: 44,
     padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#006df0',
     marginBottom: 10,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 10,
   },
   error: {
     color: '#f00',
